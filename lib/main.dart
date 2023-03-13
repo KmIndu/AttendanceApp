@@ -23,12 +23,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-<<<<<<< HEAD
-      home: const KeyboardVisibilityProvider(
-        child: AuthCheck()
-      ),
+      home: const KeyboardVisibilityProvider(child: AuthCheck()),
     );
-  } 
+  }
 }
 
 class AuthCheck extends StatefulWidget {
@@ -53,13 +50,13 @@ class _AuthCheckState extends State<AuthCheck> {
     sharedPreferences = await SharedPreferences.getInstance();
 
     try {
-      if(sharedPreferences.getString('studentId') != null) {
+      if (sharedPreferences.getString('studentId') != null) {
         setState(() {
           //User.studentId = sharedPreferences.getString('studentId')!;
           userAvailable = true;
         });
       }
-    } catch(e) {
+    } catch (e) {
       setState(() {
         userAvailable = false;
       });
@@ -71,9 +68,3 @@ class _AuthCheckState extends State<AuthCheck> {
     return userAvailable ? const HomeScreen() : const LoginScreen();
   }
 }
-=======
-      home: const KeyboardVisibilityProvider(child: LoginScreen()),
-    );
-  }
-}
->>>>>>> 023afdcfbc3597f594797f3dc3edf4690f35b30d
