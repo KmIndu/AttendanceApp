@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'homescreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -102,7 +103,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         // print(snap.docs[0]['id']);
                         try {
                           if (password == snap.docs[0]['password']) {
-                            print("continue");
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) => HomeScreen())
+                              );
                           } else {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(
