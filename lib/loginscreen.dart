@@ -18,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   double screenHeight = 0;
   double screenWidth = 0;
 
-  Color primary = const Color.fromARGB(253, 105, 68, 239);
+  Color primary = const Color.fromARGB(252, 106, 69, 237);
 
   late SharedPreferences sharedPreferences;
 
@@ -103,12 +103,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         // print(snap.docs[0]['id']);
                         try {
                           if (password == snap.docs[0]['password']) {
-                            sharedPreferences = await SharedPreferences.getInstance();
+                            sharedPreferences =
+                                await SharedPreferences.getInstance();
 
-                            sharedPreferences.setString('studentId', id).then((_) {
-                              Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) => HomeScreen())
-                              );
+                            sharedPreferences
+                                .setString('studentId', id)
+                                .then((_) {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen()));
                             });
                           } else {
                             ScaffoldMessenger.of(context)
@@ -119,7 +123,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         } catch (e) {
                           String error = " ";
 
-                          if (e.toString() =="RangeError (index): Invalid value: Valid value range is empty: 0") {
+                          if (e.toString() ==
+                              "RangeError (index): Invalid value: Valid value range is empty: 0") {
                             setState(() {
                               error = "Student id does not exist!";
                             });
