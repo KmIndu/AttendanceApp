@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/loginscreen.dart';
 import 'package:flutter_complete_guide/homescreen.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,8 +24,49 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const KeyboardVisibilityProvider(
-        child: LoginScreen()
+        child: AuthCheck()
       ),
     );
   } 
+}
+
+class AuthCheck extends StatefulWidget {
+  const AuthCheck({Key? key}) : super(key: key);
+
+  @override
+  _AuthCheckState createState() => _AuthCheckState();
+}
+
+class _AuthCheckState extends State<AuthCheck> {
+  bool userAvailable = false;
+  late SharedPreferences sharedPreferences;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _getCurrentUser();
+  }
+
+  void _getCurrentUser() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+
+    try {
+      if(sharedPreferences.getString('studentId') != null) {
+        setState(() {
+          //User.studentId = sharedPreferences.getString('studentId')!;
+          userAvailable = true;
+        });
+      }
+    } catch(e) {
+      setState(() {
+        userAvailable = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return userAvailable ? const HomeScreen() : const LoginScreen();
+  }
 }
