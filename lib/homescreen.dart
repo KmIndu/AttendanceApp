@@ -19,15 +19,20 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
-    return const Scaffold(
-      body: Center(
+    return Scaffold(
+      body: const Center(
         child: Text(
           "HOME",
         ),
       ),
       bottomNavigationBar: Container(
         height: 70,
-        decoration: BoxDecoration(
+        margin: const EdgeInsets.only(
+          left: 12,
+          right: 12,
+          bottom: 24,
+        ),
+        decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(40)),
             boxShadow: [
