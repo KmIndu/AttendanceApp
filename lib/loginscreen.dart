@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/homescreen.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'homescreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Color primary = Color.fromARGB(253, 105, 68, 239);
 
-  // late SharedPreferences sharedPreferences;
+  late SharedPreferences sharedPreferences;
 
   @override
   Widget build(BuildContext context) {
@@ -103,9 +104,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         // print(snap.docs[0]['id']);
                         try {
                           if (password == snap.docs[0]['password']) {
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) => HomeScreen())
+                            sharedPreferences = await SharedPreferences.getInstance();
+
+                            sharedPreferences.setString('studentId', id).then((_) {
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) => HomeScreen())
                               );
+                            });
                           } else {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(
@@ -115,8 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         } catch (e) {
                           String error = " ";
 
-                          if (e.toString() ==
-                              "RangeError (index): Invalid value: Valid value range is empty: 0") {
+                          if (e.toString() =="RangeError (index): Invalid value: Valid value range is empty: 0") {
                             setState(() {
                               error = "Student id does not exist!";
                             });
