@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/loginscreen.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); 
-  
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -21,9 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const KeyboardVisibilityProvider(
-        child: LoginScreen()
-      ),
+      home: const KeyboardVisibilityProvider(child: LoginScreen()),
     );
-  } 
+  }
 }
