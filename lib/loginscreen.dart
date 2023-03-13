@@ -77,15 +77,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       String id=idController.text.trim();
                       String password=passController.text.trim();
 
-                      QuerySnapshot snap= await FirebaseFirestore.instance.collection("Student").where('id', isEqualTo: id).get();
-
-                      print(snap.docs[0]['id']);
+                      
 
                       if(id.isEmpty)
                       {
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Student") ,
-                        ))
+                          content: Text("Student id is still empty") ,
+                        ));
+                      }else if(password.isEmpty){
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Password is still empty"),
+                        ));
+                      }else{
+                      QuerySnapshot snap= await FirebaseFirestore.instance.collection("Student").where('id', isEqualTo: id).get();
+
+                      print(snap.docs[0]['id']);
                       }
                     },
                     child: Container(
