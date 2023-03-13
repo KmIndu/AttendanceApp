@@ -22,7 +22,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isKeyboardVisible = KeyboardVisibilityProvider.isKeyboardVisible(context);
+    final bool isKeyboardVisible =
+        KeyboardVisibilityProvider.isKeyboardVisible(context);
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
 
@@ -30,23 +31,27 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          isKeyboardVisible ? SizedBox(height: screenHeight / 16,) : Container(
-            height: screenHeight / 2.5,
-            width: screenWidth,
-            decoration: BoxDecoration(
-              color: primary,
-              borderRadius: const BorderRadius.only(
-                bottomRight: Radius.circular(70),
-              ),
-            ),
-            child: Center(
-              child: Icon(
-                Icons.person,
-                color: Colors.white,
-                size: screenWidth / 5,
-              ),
-            ),
-          ),
+          isKeyboardVisible
+              ? SizedBox(
+                  height: screenHeight / 16,
+                )
+              : Container(
+                  height: screenHeight / 2.5,
+                  width: screenWidth,
+                  decoration: BoxDecoration(
+                    color: primary,
+                    borderRadius: const BorderRadius.only(
+                      bottomRight: Radius.circular(70),
+                    ),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.white,
+                      size: screenWidth / 5,
+                    ),
+                  ),
+                ),
           Container(
             margin: EdgeInsets.only(
               top: screenHeight / 15,
@@ -73,34 +78,52 @@ class _LoginScreenState extends State<LoginScreen> {
                   fieldTitle("Password"),
                   customField("Enter your password", passController, true),
                   GestureDetector(
-                    onTap: () async{
-                      String id=idController.text.trim();
-                      String password=passController.text.trim();
+                    onTap: () async {
+                      FocusScope.of(context).unfocus();
+                      String id = idController.text.trim();
+                      String password = passController.text.trim();
 
-                      
-
-                      if(id.isEmpty)
-                      {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Student id is still empty") ,
+                      if (id.isEmpty) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Student id is still empty"),
                         ));
-                      }else if(password.isEmpty){
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      } else if (password.isEmpty) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
                           content: Text("Password is still empty"),
                         ));
-                      }else{
-                      QuerySnapshot snap= await FirebaseFirestore.instance.collection("Student").where('id', isEqualTo: id).get();
+                      } else {
+                        QuerySnapshot snap = await FirebaseFirestore.instance
+                            .collection("Student")
+                            .where('id', isEqualTo: id)
+                            .get();
 
-                      print(snap.docs[0]['id']);
+                        // print(snap.docs[0]['id']);
+                        try {
+                          if (password == snap.docs[0]['password']) {
+                            print("continue");
+                          } else {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Password is not correct!"),
+                            ));
+                          }
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(e.toString()),
+                          ));
+                        }
                       }
                     },
                     child: Container(
                       height: 60,
-                      width:screenWidth,
+                      width: screenWidth,
                       margin: EdgeInsets.only(top: screenHeight / 40),
                       decoration: BoxDecoration(
                         color: primary,
-                        borderRadius: const BorderRadius.all(Radius.circular(30)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(30)),
                       ),
                       child: Center(
                         child: Text(
@@ -135,7 +158,8 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget customField(String hint, TextEditingController controller, bool obscure) {
+  Widget customField(
+      String hint, TextEditingController controller, bool obscure) {
     return Container(
       width: screenWidth,
       margin: EdgeInsets.only(bottom: 12),
