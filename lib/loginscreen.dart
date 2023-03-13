@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       width:screenWidth,
                       margin: EdgeInsets.only(top: screenHeight / 40),
                       decoration: BoxDecoration(
-                        color: primary, hello innu
+                        color: primary,
                         borderRadius: const BorderRadius.all(Radius.circular(30)),
                       ),
                       child: Center(
