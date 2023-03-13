@@ -5,10 +5,10 @@ import 'package:flutter_complete_guide/homescreen.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); 
-  
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+<<<<<<< HEAD
       home: const KeyboardVisibilityProvider(
         child: AuthCheck()
       ),
@@ -70,3 +71,9 @@ class _AuthCheckState extends State<AuthCheck> {
     return userAvailable ? const HomeScreen() : const LoginScreen();
   }
 }
+=======
+      home: const KeyboardVisibilityProvider(child: LoginScreen()),
+    );
+  }
+}
+>>>>>>> 023afdcfbc3597f594797f3dc3edf4690f35b30d

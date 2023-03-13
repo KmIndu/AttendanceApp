@@ -18,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   double screenHeight = 0;
   double screenWidth = 0;
 
-  Color primary = Color.fromARGB(253, 105, 68, 239);
+  Color primary = const Color.fromARGB(253, 105, 68, 239);
 
   late SharedPreferences sharedPreferences;
 
@@ -81,7 +81,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   customField("Enter your password", passController, true),
                   GestureDetector(
                     onTap: () async {
-                      FocusScope.of(context).unfocus();
                       String id = idController.text.trim();
                       String password = passController.text.trim();
 
@@ -133,6 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             content: Text(error),
                           ));
                         }
+                        print(snap.docs[0]['id']);
                       }
                     },
                     child: Container(
@@ -181,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
       String hint, TextEditingController controller, bool obscure) {
     return Container(
       width: screenWidth,
-      margin: EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: 12),
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(12)),
