@@ -110,8 +110,20 @@ class _LoginScreenState extends State<LoginScreen> {
                             ));
                           }
                         } catch (e) {
+                          String error = " ";
+
+                          if (e.toString() ==
+                              "RangeError (index): Invalid value: Valid value range is empty: 0") {
+                            setState(() {
+                              error = "Student id does not exist!";
+                            });
+                          } else {
+                            setState(() {
+                              error = "Error occurred!";
+                            });
+                          }
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text(e.toString()),
+                            content: Text(error),
                           ));
                         }
                       }
